@@ -1,0 +1,129 @@
+<h4>Formularios <small> reactivos </small></h4>
+<hr>
+<form autocomplete="off" [formGroup]="form" (ngSubmit)="guardar()">
+
+  <div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nombre</label>
+      <div class="col-8">
+
+        <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre"
+          [class.is-invalid]="nombreValido">
+        <small *ngIf="nombreValido" class="text-danger">Tiene que tener al menos 5 caracteres</small>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Apellido</label>
+      <div class="col-8">
+
+        <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido"
+          [class.is-invalid]="apellidoValido">
+        <small *ngIf="apellidoValido" class="text-danger">Tiene que tener al menos 5 caracteres</small>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Correo</label>
+    <div class="col-8">
+
+      <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="correo"
+        [class.is-invalid]="correoValido">
+      <small *ngIf="correoValido" class="text-danger">correo es obligatorio</small>
+
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Password</label>
+    <div class="col-8">
+
+      <input class="form-control" type="password" placeholder="Password" formControlName="pass1"
+      [class.is-invalid]="pass1valido"
+      >
+<!--       <small *ngIf="correoValido" class="text-danger">correo es obligatorio</small> -->
+
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">verificar password</label>
+    <div class="col-8">
+
+      <input class="form-control" type="password" placeholder="repita password" 
+      formControlName="pass2"  [class.is-invalid]="pass2valido"
+      >
+        
+<!--       <small *ngIf="correoValido" class="text-danger">correo es obligatorio</small> -->
+
+    </div>
+  </div>
+
+  <div class="form-group row" formGroupName="direccion">
+    <label class="col-2 col-form-label">Direccion</label>
+    <div class="col-4">
+
+      <input class="form-control" type="text" placeholder="distrito" formControlName="distrito"
+        [class.is-invalid]="distritoValido">
+      <small *ngIf="distritoValido" class="text-danger">distrito es obligatorio</small>
+
+    </div>
+    <div class="col-4">
+
+      <input class="form-control" type="text" placeholder="Ciudad" formControlName="ciudad"
+        [class.is-invalid]="ciudadValido">
+      <small *ngIf="ciudadValido" class="text-danger">ciudad es obligatorio</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-10">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>id</th>
+            <th>pasatiempos</th>
+            <th>borrar</th>
+          </tr>
+        </thead>
+
+        <tbody formArrayName="pasatiempos">
+          <tr *ngFor="let item of pasatiemposArray.controls; let i = index">
+            <td>{{i+1}}</td>
+            <td><input class="form-control" type="text" [formControlName]="i">  </td>
+            <td><button class="btn btn-danger " (click)="borrarElemento(i)">borrar</button> </td>
+          </tr>
+          
+        </tbody>
+
+
+      </table>
+      <button class="btn btn-primary mt-3 mb-5 btn-block"  (click)="agregarPasatiempo()">agregar</button>
+
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+   <!--  <label class="col-2 col-form-label">&nbsp;</label> -->
+    <div class="input-group col-md-10">
+      <button type="submit" class="btn btn-outline-primary btn-block">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>
+
+<pre>
+  estado del formulario:{{form.valid}}
+  <hr>
+  status:{{form.status}}
+</pre>
+<hr>
+
+<pre>
+  {{form.value| json}}
+</pre>
